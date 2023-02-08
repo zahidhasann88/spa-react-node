@@ -1,0 +1,15 @@
+Backend: Node, express js 
+Database: POSTGRES
+Frontend: REACT JS
+
+API port: 8090
+UI port: 3000
+
+To run this project use following steps:
+
+1. You have to import given database dump file,
+2. To configure your local machine database in backend there is a util folder with all the data base configuration details you can compare with your local database port , host, username, password,
+3. Backend folder inside "npm install",
+4. For running backend api use this cmd "node index.js",
+5. Before running UI you need to go spa_react frontend folder inside then install node modules here using cmd "npm install",
+6. To run this UI using cmd "npm start".
