@@ -1,6 +1,7 @@
 import React from "react";
 import {useState, useEffect} from 'react'
 import EditModal from './EditModal'
+import Swal from 'sweetalert2'
 
 const DataTable = () => {
   const [posts, setPosts] = useState([]);
@@ -28,6 +29,24 @@ const DataTable = () => {
        
     }).then((response) => {
        if (response.status === 200) {
+         Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+              window.relode();
+            }
+          })
           setPosts(
              posts.filter((post) => {
                 return post.id !== id;
@@ -62,7 +81,7 @@ return(
            <td>{post?.sector}</td>
            <td>{post?.terms}</td>
            <td className='text-center'>
-           <EditModal key={post.id}/></td>
+           <EditModal onClick={post.id}/></td>
            <td className='text-center'>
            <i className="fa fa-trash" aria-hidden="true" style={{color: 'red'}}
               onClick={() => deletePost(post.id)}></i>

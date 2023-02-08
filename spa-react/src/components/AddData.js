@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import DataTable from './DataTable'
-// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 
 const AddData = () => {
   const [name, setName] = useState('');
@@ -23,13 +23,22 @@ const AddData = () => {
     })
        .then((response) => response.json())
        .then((data) => {
+         Swal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+          )
           setPosts((posts) => [data, ...posts]);
           setName('');
           setSector('');
           setTerms('');
        })
        .catch((err) => {
-          console.log(err.message);
+         Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!'
+          })
        });
  };
 
@@ -60,7 +69,7 @@ return (
              <div className='col-2'>
                <label style={{fontWeight: 'bold'}}>Name</label>
                  </div>
-                   <div className='form-group col-3'>
+                   <div className='form-group col'>
                       <input type="text" className="form-control"  name="name" value={name}
                              onChange={(e) => setName(e.target.value)}
                              style={{ borderRadius: '2px', width: '23rem'}} placeholder="Enter Name" required />
@@ -71,7 +80,7 @@ return (
                          <label style={{fontWeight: 'bold'}}>Sectors</label>
                        </div>
                           <div className='form-group col'>
-                              <select className="form-select" value={sector} onChange={(e) => setSector(e.target.value)}  required
+                              <select className="form-select" value={sector} onChange={(e) => setSector(e.target.value)} required
                                       style={{ borderRadius: '2px', width: '23rem'}}>
                                       {posts.map((post) => {
                                         return(
