@@ -19,6 +19,12 @@ const DataTable = () => {
    const deletePost = async (id) => {
     await fetch(`http://localhost:8090/delete-data`, {
        method: 'DELETE',
+       body: JSON.stringify({
+           id: id,
+      }),
+         headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+      },
        
     }).then((response) => {
        if (response.status === 200) {
@@ -56,7 +62,7 @@ return(
            <td>{post?.sector}</td>
            <td>{post?.terms}</td>
            <td className='text-center'>
-           <EditModal /></td>
+           <EditModal key={post.id}/></td>
            <td className='text-center'>
            <i className="fa fa-trash" aria-hidden="true" style={{color: 'red'}}
               onClick={() => deletePost(post.id)}></i>
